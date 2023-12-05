@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta name="author" content="Soós András">
+    <meta name="copyright" content="Real Madrid Fanpage">
+    <link rel="icon" href="képek/favicon.png" type="image/x-icon">
+    <link rel="stylesheet" href="style.css">
+    <title>Beadandó weboldal - Real Madrid Rajongói oldal</title>
+    <script src="jquery/jquery-3.7.1.js"></script>
+    <script src="jquery/validation/dist/jquery.validate.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $("#myform").validate({ 
+rules: {
+vezeteknev: "required",
+
+keresztnev: "required",
+
+email: {required: true,
+email: true},
+
+telefonszam:{required: true},
+szallitasi_idopont:{required},
+feltetelek: {
+required: true,},
+},
+
+messages: {
+vezeteknev: " Írd be a vezetékneved!",
+keresztnev: " Írd be a keresztneved!",
+telefonszam: "Add meg a telefonszámodat!",
+szallitasi_idopont: "Adj meg időpontot!",
+email: " Valós email címet adj meg!",
+mezdb: " Maximum 5 mez rendelhető!",
+labdadb: " Maximum 5 labda rendelhető!",
+feltetelek: " Fogadd el a feltételeket!",
+},
+            
+});
+});
+
+</script>
+</head>
+<body>
+    <header>
+        <img src="képek/favicon.png" alt="Real Madrid címer">
+        <h1><a href="index.html">Real Madrid Rajongói oldal</a></h1>
+        </header>
+        <nav>
+            <ul>
+                <li><a href="index.html">A csapatról</a></li>
+                <li><a href="keret.html">Jelenlegi és korábbi játékosok</a></li>
+                <li><a href="teszt.html">Tudásszonda</a></li>
+                <li><a href="#" id="active">Webshop</a></li>
+            </ul>
+        </nav>  
+
+<div class="container">
+<form id="myform" action="http://szamtud.uni-corvinus.hu/receive.php" method="post" novalidate>
+    <article>
+        <h2>Az alábbiakban kiválaszthatod termékeidet!</h2>
+        <hr>
+        <h2>A rendeléshez szükséges adatok:</h2>
+        <label>Vezetéknév: <input type="text" id="vezeteknev" name="vezeteknev" placeholder="Vezetéknév:"></label><br>
+        <label>Keresztnév: <input type="text" id="keresztnev" name="keresztnev" placeholder="Keresztnév:"></label><br>
+        <label>E-mail: <input type="email" id="email" name="email" placeholder="E-mail cím:"></label><br>
+        <label>Telefonszám: <input type="tel" id="telefonszam" name="telefonszam" placeholder="06"></label><br>
+    </article>
+    <article class="rendeles2">
+        <h2>Mezrendelés</h2>
+        <h3>Kiválaszthatod a mez típusát és méretét!</h3>
+        <h3>A mez ára: 12000 Ft/db</h3>
+        <hr>
+        <table>
+            <tr>
+                <td>
+                    <figure>
+                    <figcaption>Hazai:</figcaption>
+                    <img src="képek/webshop/home.png" alt="Hazai mez" class="tabla">
+                    </figure>
+                </td>
+                <td>
+                    <figure>
+                    <figcaption>Idegenbeli</figcaption>
+                    <img src="képek/webshop/away.png" alt="Idegenbeli mez" class="tabla">
+                    </figure>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <figure>
+                    <figcaption>Harmadik</figcaption>
+                    <img src="képek/webshop/third.png" alt="Harmadik mez" class="tabla">
+                    </figure>
+                </td>
+                <td>
+                    <figure>
+                    <figcaption>Speciális</figcaption>
+                    <img src="képek/webshop/kapus.png" alt="Kapus mez" class="tabla">
+                    </figure>
+                </td>
+        </table>
+        <br>
+        <label>Melyik mezt szeretnéd? <select id="meztype" name="meztype">
+            <option value="H">Hazai</option>
+            <option value="V">Vendég</option>
+            <option value="3">Harmadik</option>
+            <option value="K">Kapus</option>
+        </select></label>
+        <br><br>
+        <label>A mez mérete: <select id="meret" name="meret">
+            <option value="XXS">XXS</option>
+            <option value="XS">XS</option>
+            <option value="S">S</option>
+            <option value="M">M</option>
+            <option value="L">L</option>
+            <option value="XL">XL</option>
+            <option value="XXL">XXL</option>
+        </select></label>
+        <br><br>
+    <label>Darabszám: <input type="number" name="mezdb" id="mezdb" min="0" max="5" value="0"></label><br><br>
+    <hr>
+    <h2>Labda rendelés</h2>
+    <h3>Szeretnél mellé Real Madridos labdát?</h3>
+    <h3>A labda ára: 6000 Ft/db</h3>
+    <img src="képek/webshop/ball.png" alt="ball" class="labda"><br> 
+    <label>Darabszám: <input type="number" name="labdadb" id="labdadb" min="0" max="5"  value="0"></label><br><br>
+    </article>
+    <article>
+    <h2>Rendelés leadása</h2>
+    <hr>
+    <div class="kosarba"><input type="button" value="Kosárba" id="kosarba" onclick="szamolas()"></div>
+    <div class="vegosszeg" id="vegosszeg">Végösszeg: 0 Ft</div><br>
+    <label>Mikorra szállítsuk a terméket?<input type="date" name="szallitasi_idopont" id="szallitasi_idopont"></label><br>
+    <label>Elfogadom az általános szerződési feltételeket:<input type="checkbox" id="feltetelek" name="feltetelek"></label><br><br>
+    <div class="vasarlas"><input type="submit" value="Rendelés" id="rendeles" class="rendeles" ></div><br>
+
+    </article>
+</form>
+</div>
+
+
+
+
+
+
+
+
+<footer>
+    <table>
+        <tr>
+            <td class="bal">
+                <p>A Real Madrid különböző platfomokon:</p>
+            </td>
+            <td class="jobb"> 
+                <a href="https://www.realmadrid.com/en-US" target="_blank"><img src="képek/footer/favicon.png" alt="A Real Madrid honlapja"></a>
+                <a href="https://www.facebook.com/RealMadrid/?locale=hu_HU" target="_blank"><img src="képek/footer/facebook.png" alt="A Real Madrid Facebook oldala"></a>
+                <a href="https://www.instagram.com/realmadrid/" target="_blank"><img src="képek/footer/insta.png" alt="A Real Madrid Instagram oldala"></a>
+                <a href="https://twitter.com/realmadrid?" target="_blank"><img src="képek/footer/X.png" alt="A Real Madrid Twitter oldala"></a>
+            </td>  
+        </tr>
+    </table>
+</footer>
+<script src="script.js"></script>
+</body>
+</html>
